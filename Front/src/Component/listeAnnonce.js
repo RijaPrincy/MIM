@@ -28,9 +28,9 @@ export default class test extends Component {
     render() {
         return (
             <div className="container">
-                <form>
+                <form >
                     <center><h3>Filtre​ </h3></center>
-                    <div className="row">
+                    <div className="row" style={{marginTop:"70px" }}>
 
 
                         <div class="form-group" className="col-md-6">
@@ -69,7 +69,7 @@ export default class test extends Component {
 
 
                     </div>
-                    <div className="row">
+                    <div className="row" >
 
 
 

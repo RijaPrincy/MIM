@@ -38,5 +38,13 @@ route.get('/image/:im',venteIm.image)
 route.post('/getVente',venteIm.getVenteIm)
 route.get('/getAll',venteIm.getAll)
 route.get('/getOne/:id',venteIm.getOne)
+route.get('/getMesAnnonces/:id',venteIm.getMesAnnonces)
+
+
+route.post('/contact',venteIm.contact)
+route.get('/getContact/:id',venteIm.getContact)
+
+
+route.put('/updateVisibilite',venteIm.updateVisibilite)
 
 module.exports = route

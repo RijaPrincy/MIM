@@ -13,6 +13,13 @@ class App extends Component {
       data: ""
     }
   }
+  componentDidMount(){
+    if(localStorage.getItem('token')){
+      this.setState({
+        data:localStorage.getItem('token')
+      })
+    }
+  }
 
 
   render() {

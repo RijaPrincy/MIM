@@ -22,6 +22,9 @@ const AnnonceVente = mongoose.Schema({
     prix:String,
     description:String,
     image:String,
+    image1:String,
+    image2:String,
+    image3:String,
     idPoster:String,
     typeV:String,
     date:String

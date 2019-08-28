@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from
     "mdbreact"
+import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+
 
 
 export default class detailAnnonce extends Component {
@@ -9,8 +11,26 @@ export default class detailAnnonce extends Component {
         super(props);
         this.state = {
             annonce: "",
+            url: "",
+            url1: "",
+            url2: "",
+            url3: "",
+            nom: "",
+            prenom: "",
+            email: "",
+            telephone: "",
+            message: "",
+            reussi: "",
+            non: ""
 
         }
+        this.change = this.change.bind(this)
+    }
+
+    change(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
 
@@ -19,7 +39,11 @@ export default class detailAnnonce extends Component {
         axios.get("http://localhost:8080/getOne/" + this.props.match.params.id)
             .then(resp => {
                 this.setState({
-                    annonce: resp.data
+                    annonce: resp.data,
+                    url: "http://localhost:8080/image/" + resp.data.image,
+                    url1: "http://localhost:8080/image/" + resp.data.image1,
+                    url2: "http://localhost:8080/image/" + resp.data.image2,
+                    url3: "http://localhost:8080/image/" + resp.data.image3,
                 })
                 console.log(resp.data);
             }).catch(err => {
@@ -27,16 +51,64 @@ export default class detailAnnonce extends Component {
             })
 
     }
+    contact(e) {
+        axios.post("http://localhost:8080/contact", e)
+            .then(res => {
+                console.log(res);
+                if(res.data=="not ok"){
+                    this.setState({
+                        non: "non reussi",
+                        reussi: ""
+                    })
+                }else{
+                    this.setState({
+                        non: "",
+                        reussi: "reussi",
+    
+                    })
+                }
+                
+
+            }).catch(er => {
+                console.log(er);
+                this.setState({
+                    non: "non reussi",
+                    reussi: ""
+                })
+
+            })
+
+    }
+
+
+
+
+
+
+    state={
+        modal6: false,
+        modal7: false
+      }
+      
+      toggle = nr => () => {
+        let modalNumber = 'modal' + nr
+        this.setState({
+          [modalNumber]: !this.state[modalNumber]
+        });
+      }
+      
     render() {
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col-md-9" >
+
+
+                <div className="row" >
+                    <div className="col-md-9" style={{ marginTop: "100px" }}>
                         <h2 className="font-weight-bold mb-3 p-0">
                             <strong>{this.state.annonce.typeV}  {this.state.annonce.type}  {this.state.annonce.pays} {this.state.annonce.commune} </strong>
                         </h2>
                         <h6 className="font-weight-bold mb-3 p-0">
-                            {this.state.annonce.address} 
+                            {this.state.annonce.address}
                         </h6>
                         <h5 className="font-weight-bold mb-3 p-0">
                             {this.state.annonce.nbPiece} pièces/ {this.state.annonce.nbChambre} chambres/ {this.state.annonce.surfaceTerrain} m2
@@ -47,31 +119,12 @@ export default class detailAnnonce extends Component {
                         <h5 className="font-weight-bold mb-3 p-0">
                             <strong>Les caractéristiques : {this.state.annonce.caracteristique} </strong>
                         </h5>
-                        <div className="container" style={{marginTop:"20px",marginBottom:"29px"}}>{this.state.annonce.description}</div>
-                        {/* <div class="w3-content" style={{maxWidth:"1200px"}}>
-                            <img class="mySlides" src="http://localhost:8080/image/ghj" style={{width:"100%"}}/>
-                            <img class="mySlides" src="http://localhost:8080/image/ghj" style={{width:"100%"}}/>
-                            <img class="mySlides" src="http://localhost:8080/image/ghj" style={{width:"100%"}}/>
+                        <div className="container" style={{ marginTop: "20px", marginBottom: "29px" }}>{this.state.annonce.description}</div>
 
-                            <div class="w3-row-padding w3-section">
-                                <div class="w3-col s4">
-                                <img class="demo w3-opacity" src="http://localhost:8080/image/ghj"
-                                style={{width:"100%"}} onclick="currentDiv(1)"/>
-                                </div>
-                                <div class="w3-col s4">
-                                <img class="demo w3-opacity" src="http://localhost:8080/image/ghj"
-                                style={{width:"100%",display:"none"}} onclick="currentDiv(2)"/>
-                                </div>
-                                <div class="w3-col s4">
-                                <img class="demo w3-opacity" src="http://localhost:8080/image/ghj"
-                                 style={{width:"100%",display:"none"}} onclick="currentDiv(3)"/>
-                                </div>
-                            </div>
-                            </div> */}
                         <MDBContainer>
                             <MDBCarousel
                                 activeItem={1}
-                                length={6}
+                                length={4}
                                 showControls={true}
                                 showIndicators={true}
                                 className="z-depth-1"
@@ -81,7 +134,7 @@ export default class detailAnnonce extends Component {
                                         <MDBView>
                                             <img
                                                 className="d-block w-100"
-                                                src="http://localhost:8080/image/ghj"
+                                                src={this.state.url}
                                                 alt="First slide"
                                             />
                                             <MDBMask overlay="black-light" />
@@ -95,7 +148,7 @@ export default class detailAnnonce extends Component {
                                         <MDBView>
                                             <img
                                                 className="d-block w-100"
-                                                src="http://localhost:8080/image/ghj"
+                                                src={this.state.url1}
                                                 alt="Second slide"
                                             />
                                             <MDBMask overlay="black-light" />
@@ -109,7 +162,7 @@ export default class detailAnnonce extends Component {
                                         <MDBView>
                                             <img
                                                 className="d-block w-100"
-                                                src="http://localhost:8080/image/ghj"
+                                                src={this.state.url2}
                                                 alt="Third slide"
                                             />
                                             <MDBMask overlay="black-light" />
@@ -123,7 +176,7 @@ export default class detailAnnonce extends Component {
                                         <MDBView>
                                             <img
                                                 className="d-block w-100"
-                                                src="http://localhost:8080/image/ghj"
+                                                src={this.state.url3}
                                                 alt="Third slide"
                                             />
                                             <MDBMask overlay="black-light" />
@@ -133,34 +186,7 @@ export default class detailAnnonce extends Component {
                                             <p>Third text</p>
                                         </MDBCarouselCaption>
                                     </MDBCarouselItem>
-                                    <MDBCarouselItem itemId="5">
-                                        <MDBView>
-                                            <img
-                                                className="d-block w-100"
-                                                src="http://localhost:8080/image/ghj"
-                                                alt="Third slide"
-                                            />
-                                            <MDBMask overlay="black-light" />
-                                        </MDBView>
-                                        <MDBCarouselCaption>
-                                            <h3 className="h3-responsive">Slight Mast</h3>
-                                            <p>Third text</p>
-                                        </MDBCarouselCaption>
-                                    </MDBCarouselItem>
-                                    <MDBCarouselItem itemId="6">
-                                        <MDBView>
-                                            <img
-                                                className="d-block w-100"
-                                                src="http://localhost:8080/image/ghj"
-                                                alt="Third slide"
-                                            />
-                                            <MDBMask overlay="black-light" />
-                                        </MDBView>
-                                        <MDBCarouselCaption>
-                                            <h3 className="h3-responsive">Slight Mast</h3>
-                                            <p>Third text</p>
-                                        </MDBCarouselCaption>
-                                    </MDBCarouselItem>
+
                                 </MDBCarouselInner>
                             </MDBCarousel>
                         </MDBContainer>
@@ -174,54 +200,70 @@ export default class detailAnnonce extends Component {
 
 
 
-                    <div className="col-md-3">
+                    <div className="col-md-3" style={{ marginTop: "100px" }}>
 
                         <form id="login-form" class="form" action="" method="post">
                             <h3 class="text-center text-info">Nous contacter</h3>
                             <div class="form-group">
                                 <label for="username" >Nom:</label><br />
-                                <input type="text" name="titre" value={this.state.titre} onChange={this.change} id="titre" class="form-control" required/>
+                                <input type="text" name="nom" value={this.state.nom} onChange={this.change} id="titre" class="form-control" required />
                             </div>
 
 
                             <div class="form-group">
                                 <label for="password" >Prénom:</label><br />
-                                <input type="text" name="text" value={this.state.date} onChange={this.change} id="date" class="form-control" />
+                                <input type="text" name="prenom" value={this.state.prenom} onChange={this.change} id="date" class="form-control" />
                             </div>
 
 
 
                             <div class="form-group">
                                 <label for="password" >email:</label><br />
-                                <input type="email" name="heureDebut" value={this.state.heureDebut} onChange={this.change} id="heureDebut" class="form-control" required/>
+                                <input type="email" name="email" value={this.state.email} onChange={this.change} id="heureDebut" class="form-control" required />
                             </div>
 
 
                             <div class="form-group">
                                 <label for="password" >telephone:</label><br />
-                                <input type="text" name="duree" value={this.state.duree} onChange={this.change} id="duree" class="form-control" required/>
+                                <input type="text" name="telephone" value={this.state.telephone} onChange={this.change} id="duree" class="form-control" required />
                             </div>
 
 
 
                             <div class="form-group">
                                 <label for="password" >Votre message:</label><br />
-                                <textarea type="text" name="description" value={this.state.description} onChange={this.change} id="Description" class="form-control" />
+                                <textarea type="text" name="message" value={this.state.message} onChange={this.change} id="Description" class="form-control" />
                             </div>
 
 
                             <div class="form-group">
 
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Envoyer" />
+                                <input type="submit" onClick={(e) => {
+                                    e.preventDefault()
+                                    this.contact({
+                                        nom: this.state.nom,
+                                        prenom: this.state.prenom,
+                                        telephone: this.state.telephone,
+                                        email: this.state.email,
+                                        message: this.state.message,
+                                        idAnnonce: this.props.match.params.id
+
+                                    })
+                                }} name="submit" class="btn btn-info btn-md" value="Envoyer" />
 
 
                             </div>
-                            <div id="reussi" style={{ color: "#f3671f", fontSize: "2em" }}></div>
-                            <div id="non" style={{ color: "#f3671f", fontSize: "2em" }}></div>
+                            <div id="reussi" style={{ color: "#f3671f", fontSize: "2em" }}>{this.state.reussi}</div>
+                            <div id="non" style={{ color: "#f3671f", fontSize: "2em" }}>{this.state.non}</div>
 
                         </form>
                     </div>
                 </div>
+
+
+
+
+               
 
             </div>
         )

@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Test from './listeAnnonce'
 import DetailAnnonce from './detailAnnonce'
 import Footer from './footer'
+import Authent from './Authentification'
+import Dashboard from './Dashboard'
 
 class NavbarPage extends Component {
     state = {
@@ -20,8 +22,8 @@ class NavbarPage extends Component {
     render() {
         return (
             <Router>
-                <div>
-                    <MDBNavbar color="default-color" dark expand="md">
+                <div >
+                    <MDBNavbar color="default-color" dark expand="md" style={{position:"fixed", width:"100%", zIndex:"99"}}>
                         <MDBNavbarBrand>
                             <strong className="white-text">Navbar</strong>
                         </MDBNavbarBrand>
@@ -56,6 +58,8 @@ class NavbarPage extends Component {
                     </MDBNavbar>
                     <Route path='/test' component={Test}/>
                     <Route path='/detailAnnonce/:id' component={DetailAnnonce}/>
+                    <Route path='/authentification' component={Authent}/>
+                    <Route path='/Dashboard' component={Dashboard}/>
                     <Footer/>
                 </div>
                 
