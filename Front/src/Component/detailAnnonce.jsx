@@ -52,7 +52,34 @@ export default class detailAnnonce extends Component {
 
     }
     contact(e) {
-        axios.post("http://localhost:8080/contact", e)
+        console.log("mande");
+        
+        // axios.post("http://localhost:8080/contact", e)
+        //     .then(res => {
+        //         console.log(res);
+        //         if(res.data=="not ok"){
+        //             this.setState({
+        //                 non: "non reussi",
+        //                 reussi: ""
+        //             })
+        //         }else{
+        //             this.setState({
+        //                 non: "",
+        //                 reussi: "reussi",
+    
+        //             })
+        //         }
+                
+
+        //     }).catch(er => {
+        //         console.log(er);
+        //         this.setState({
+        //             non: "non reussi",
+        //             reussi: ""
+        //         })
+
+        //     })
+        axios.put("http://localhost:8080/postcontact2", e)
             .then(res => {
                 console.log(res);
                 if(res.data=="not ok"){
@@ -246,7 +273,8 @@ export default class detailAnnonce extends Component {
                                         telephone: this.state.telephone,
                                         email: this.state.email,
                                         message: this.state.message,
-                                        idAnnonce: this.props.match.params.id
+                                        id: this.props.match.params.id,
+                                        vue:false
 
                                     })
                                 }} name="submit" class="btn btn-info btn-md" value="Envoyer" />

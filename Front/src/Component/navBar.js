@@ -10,6 +10,10 @@ import Footer from './footer'
 import Authent from './Authentification'
 import Dashboard from './Dashboard'
 
+import Post from './posterAnnonce'
+import MesAnnonces from './listeMesAnnonces'
+import Detail from './detailMesAnnonces'
+
 class NavbarPage extends Component {
     state = {
         isOpen: false
@@ -18,12 +22,16 @@ class NavbarPage extends Component {
     toggleCollapse = () => {
         this.setState({ isOpen: !this.state.isOpen });
     }
+    componentDidMount(){
+        console.log("NAV");
+        
+    }
 
     render() {
         return (
             <Router>
                 <div >
-                    <MDBNavbar color="default-color" dark expand="md" style={{position:"fixed", width:"100%", zIndex:"99"}}>
+                    <MDBNavbar color="default-color" dark expand="md" style={{ position: "fixed", width: "100%", zIndex: "99" }}>
                         <MDBNavbarBrand>
                             <strong className="white-text">Navbar</strong>
                         </MDBNavbarBrand>
@@ -34,7 +42,7 @@ class NavbarPage extends Component {
                                     <MDBNavLink to="#!">Home</MDBNavLink>
                                 </MDBNavItem>
                                 <MDBNavItem>
-                                    <MDBNavLink to="/test">Features</MDBNavLink>
+                                    <MDBNavLink to="/">Features</MDBNavLink>
                                 </MDBNavItem>
                                 <MDBNavItem>
                                     <MDBNavLink to="#!">Pricing</MDBNavLink>
@@ -56,13 +64,18 @@ class NavbarPage extends Component {
                             </MDBNavbarNav>
                         </MDBCollapse>
                     </MDBNavbar>
-                    <Route path='/test' component={Test}/>
-                    <Route path='/detailAnnonce/:id' component={DetailAnnonce}/>
-                    <Route path='/authentification' component={Authent}/>
-                    <Route path='/Dashboard' component={Dashboard}/>
-                    <Footer/>
+                    <Route path='/' exact component={Test} />
+                    <Route path='/detailAnnonce/:id' exact component={DetailAnnonce} />
+                    {/* <Route path='/authentification' exact component={Authent} /> */}
+                    {/* <Route path='/Dashboard' component={Dashboard} /> */}
+
+
+                    {/* <Route path="/poster_annonce" exact component={Post} />
+                    <Route path="/MesAnnonces" component={MesAnnonces} />
+                    <Route path="/DetailMesAnnonces/:id" exact component={Detail} /> */}
+                    
                 </div>
-                
+
             </Router>
         );
     }

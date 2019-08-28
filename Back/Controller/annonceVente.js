@@ -276,18 +276,18 @@ module.exports.contact = function (req, res) {
         telephone = req.body.telephone,
         email = req.body.email,
         message = req.body.message
-        idAnnonce=req.body.idAnnonce
+    idAnnonce = req.body.idAnnonce
 
     if (nom && prenom && message && email) {
-        const contact = new Contact({ nom, prenom, telephone, email, message,idAnnonce ,date: new Date()})
+        const contact = new Contact({ nom, prenom, telephone, email, message, idAnnonce, date: new Date() })
         contact.save()
             .then(resp => {
                 res.send(resp)
-            }).catch(er=>{
+            }).catch(er => {
                 console.log(er);
-                
+
             })
-    }else{
+    } else {
         res.send("not ok")
     }
 }
@@ -295,13 +295,13 @@ module.exports.contact = function (req, res) {
 
 
 module.exports.getContact = function (req, res) {
-   Contact.find({idAnnonce:req.params.id})
-   .then(resp=>{
-       res.send(resp)
-   }).catch(er=>{
-       console.log(er);
-       
-   })
+    Contact.find({ idAnnonce: req.params.id })
+        .then(resp => {
+            res.send(resp)
+        }).catch(er => {
+            console.log(er);
+
+        })
 }
 
 
@@ -309,19 +309,81 @@ module.exports.getContact = function (req, res) {
 module.exports.updateVisibilite = function (req, res) {
 
     Contact.findById(req.body.id)
-    .then(resp => {
-       
-        Contact.findByIdAndUpdate(req.body.id, {vue:!resp.vue})
-            .then(resp2 => {
-                res.send(resp2)
-            }).catch(err => {
-                console.log(err);
+        .then(resp => {
 
-            })
+            Contact.findByIdAndUpdate(req.body.id, { vue: !resp.vue })
+                .then(resp2 => {
+                    res.send(resp2)
+                }).catch(err => {
+                    console.log(err);
 
-    }).catch(err => {
-        console.log(err);
+                })
 
-    })
+        }).catch(err => {
+            console.log(err);
+
+        })
+
+}
+
+
+module.exports.Postcontact2 = function (req, res) {
+    var nom = req.body.nom,
+        prenom = req.body.prenom,
+        telephone = req.body.telephone,
+        email = req.body.email,
+        message = req.body.message
+    vue = req.body.vue
+
+
+    AnnonceVente.findById(req.body.id)
+        .then(resp => {
+            //console.log(resp.contact);
+            var temp = resp.contact
+            temp.push({ nom: nom, prenom: prenom, telephone: telephone, email: email, message: message, vue: vue })
+
+
+            AnnonceVente.findByIdAndUpdate(req.body.id, { contact: temp })
+                .then(resp2 => {
+                    console.log("reasp2", resp2.contact);
+
+                    res.send(resp2)
+                }).catch(err => {
+                    console.log(err);
+
+                })
+
+        }).catch(err => {
+            console.log(err);
+
+        })
+}
+
+module.exports.visibilite2 = function (req, res) {
+    var idAnnonce = req.body.idAnnonce,
+        index = req.body.index
+
+    AnnonceVente.findById(idAnnonce)
+        .then(resp => {
+
+            console.log("resp",resp.contact[parseInt(index)]);
+
+            var temp0=resp.contact
+            temp0[parseInt(index)].vue=!temp0[parseInt(index)].vue
+            
+           
+            console.log("temp",temp0);
+            
+            AnnonceVente.findByIdAndUpdate(idAnnonce,{contact:temp0})
+                .then(resp2 => {
+                    res.send(resp2)
+                }).catch(err => {
+                    console.log(err);
+
+                })
+        }).catch(er => {
+            console.log(er);
+
+        })
 
 }

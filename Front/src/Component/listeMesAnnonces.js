@@ -10,7 +10,7 @@ export default class listeMesAnnonces extends Component {
             list1: '',
             pictures: [],
             message: "",
-            temp:"true"
+            temp:""
         }
     }
 
@@ -29,7 +29,7 @@ export default class listeMesAnnonces extends Component {
     }
     render() {
         return (
-            <div className="container">
+            <div className="container" style={{fontSize:"15px"}}>
                 <form >
                     <center><h3>Filtre​ </h3></center>
                     <div className="row" style={{ marginTop: "70px" }}>
@@ -50,30 +50,12 @@ export default class listeMesAnnonces extends Component {
                             anim id est laborum.
                     </p>
                         {this.state.list.length > 0 ? this.state.list.map((ate, index) => {
+                            var even = function(element) {
+                                // checks whether an element is even
+                                return element.vue === false;
+                              };
 
                             
-                            axios.get("http://localhost:8080/getContact/" + ate._id)
-                                .then(res => {
-                                    for(let i=0;i<res.data.length;i++){
-                    
-                                        if(res.data[i].vue==false){
-                                            this.setState({
-                                                temp:false
-                                            })
-                                           i=res.data.length
-                                        }
-                                    }
-
-                                }).catch(er => {
-                                    console.log(er);
-                                })
-
-
-
-
-
-
-
                             let a = "http://localhost:8080/image/" + ate.image
                             let h = new Date(ate.date)
                             let r = h.getDate() + "/" + (h.getMonth() + 1) + "/" + h.getFullYear()
@@ -111,11 +93,11 @@ export default class listeMesAnnonces extends Component {
                                                 <p>
                                                     {r}
                                                 </p>
-                                                <p>{this.state.temp?"":<div style={{fontSize:"15px",color:"red"}}>il y a des messages non lues</div>}</p>
+                                                <p>{ate.contact.some(even)>0?<div style={{fontSize:"15px",color:"red"}}>il y a des messages non lues</div>:""}</p>
                                                 <MDBBtn color="success" size="md" className="waves-light " onClick={
                                                     () => this.props.history.push('/DetailMesAnnonces/' + ate._id)
                                                 }>
-                                                    En savoir plus
+                                                    Modigier
                                                 </MDBBtn>
                                             </MDBCol>
                                         </MDBRow>
@@ -133,13 +115,14 @@ export default class listeMesAnnonces extends Component {
                                                     <strong>{ate.prix} Ar </strong>
                                                 </h2>
                                                 <p>
-                                                    {ate.description}
+                                                {ate.description.length > 200 ? ate.description.slice(0, 200) + '...' : ate.description}
                                                 </p>
 
                                                 <p>
 
                                                     {r}
                                                 </p>
+                                                <p>{ate.contact.some(even)>0?<div style={{fontSize:"15px",color:"red"}}>il y a des messages non lues</div>:""}</p>
                                                 <MDBBtn
                                                     color="pink"
                                                     size="md"
@@ -148,7 +131,7 @@ export default class listeMesAnnonces extends Component {
                                                         () => this.props.history.push('/DetailMesAnnonces/' + ate._id)
                                                     }
                                                 >
-                                                    En savoir plus
+                                                    Modifier
                                             </MDBBtn>
                                             </MDBCol>
                                             <MDBCol lg="5">

@@ -2,36 +2,37 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import Store from './Store/store'
 import Nav from './Component/navBar'
+import PointDEntrer from './Component/pointEntrer'
+import Auth from './Component/Authentification'
+
+import Poster from './Component/posterAnnonce'
+import MesAnnonce from './Component/listeMesAnnonces'
+import DetailMes from './Component/detailMesAnnonces'
+
+
+import  DetailAnnonce from './Component/detailAnnonce'
+
+
+
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import Dash from './Component/Dashboard'
+import Footer from './Component/footer'
 
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: ""
-    }
-  }
-  componentDidMount(){
-    if(localStorage.getItem('token')){
-      this.setState({
-        data:localStorage.getItem('token')
-      })
-    }
-  }
-
-
   render() {
     return (
       <div className="app">
-        <Provider store={Store}>
-          <div >
-            <Nav />
-          </div>
-
-
-        </Provider>
+       <Router>
+         <div>
+           <Route  path='/' component={PointDEntrer}></Route>
+           <Route path='/authentification' component={Auth}></Route>
+           <Route path='/Dashboard' component={Dash}></Route>
+         </div>
+       </Router>
+        <Footer />
 
 
       </div>

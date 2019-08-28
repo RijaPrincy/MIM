@@ -234,12 +234,6 @@ export default class detailMesAnnonce extends Component {
 
 
 
-
-
-
-
-
-
     state = {
         modal6: false,
         modal7: false
@@ -257,6 +251,8 @@ export default class detailMesAnnonce extends Component {
         console.log(this.props.match.params.id);
         axios.get("http://localhost:8080/getOne/" + this.props.match.params.id)
             .then(resp => {
+                console.log("resp",resp);
+                
                 this.setState({
                     annonce: resp.data,
                     pays: resp.data.pays,
@@ -272,86 +268,70 @@ export default class detailMesAnnonce extends Component {
                     caracteristique: resp.data.caracteristique,
                     prix: resp.data.prix,
                     description: resp.data.description,
+                    message:resp.data.contact,
                     url: "http://localhost:8080/image/" + resp.data.image,
                     url1: "http://localhost:8080/image/" + resp.data.image1,
                     url2: "http://localhost:8080/image/" + resp.data.image2,
                     url3: "http://localhost:8080/image/" + resp.data.image3,
                 })
+                
+                    for(let j=0;j<resp.data.contact.length;j++){
+                        if(resp.data.contact[j].vue==false){
+                            console.log("if",resp.data.contact[j].vue);
+                            this.setState({
+                                vue: false
+                            })
+                            j=resp.data.contact.length
+                            
+                        }else{
+                            console.log("nothing");
+                            
+                        }
+
+                    
+
+                }
                 console.log(resp.data);
             }).catch(err => {
                 console.log(err);
             })
+        }
 
-
-
-
-        axios.get("http://localhost:8080/getContact/" + this.props.match.params.id)
-            .then(res => {
-                console.log("contact get", res);
-                for(let i=0;i<res.data.length;i++){
-                    
-                    if(res.data[i].vue==false){
-                        console.log("if",res.data[i].vue);
-                        this.setState({
-                            vue: false
-                        })
-                        i=res.data.length
-                        
-                    }else{
-                        console.log("nothing");
-                        
-                    }
-                }
-                this.setState({
-                    message: res.data
-                })
-               
-
-            }).catch(er => {
-                console.log(er);
-
-            })
-
-    }
 
 
     visibilite(e){
-        axios.put("http://localhost:8080/updateVisibilite",e)
+        axios.put("http://localhost:8080/updateVisibilite2",e)
         .then(re=>{
             console.log(re);
-            axios.get("http://localhost:8080/getContact/" + this.props.match.params.id)
-            .then(res => {
-                console.log("contact get", res);
+            axios.get("http://localhost:8080/getOne/" + this.props.match.params.id)
+            .then(resp => {
+                console.log("resp",resp);
+                
+                this.setState({
+                    annonce: resp.data,
+                    message:resp.data.contact
+                })
+                let h=1
+                    for(let j=0;j<resp.data.contact.length;j++){
+                        if(resp.data.contact[j].vue===false){
+                            console.log("if",resp.data.contact[j].vue);
+                            this.setState({
+                                vue: false
+                            })
+                            h=h+1
+                            j=resp.data.contact.length
+                            
+                        }    
 
-                var h=1
-                for(let i=0;i<res.data.length;i++){
-                    
-                    if(res.data[i].vue==false){
-                        console.log("if",res.data[i].vue);
-                        this.setState({
-                            vue: false
-                        })
-                        i=res.data.length
-                        h=h+1
-                        
-                    }
                 }
                 if(h==1){
                     this.setState({
                         vue: true
                     })
                 }
-
-
-
-                this.setState({
-                    message: res.data
-                })
-               
-
-            }).catch(er => {
-                console.log(er);
-
+                console.log(resp.data);
+            }).catch(err => {
+                console.log(err);
             })
             
         }).catch(er=>{
@@ -361,7 +341,7 @@ export default class detailMesAnnonce extends Component {
     }
     render() {
         return (
-            <div className="container">
+            <div className="container" style={{fontSize:"15px"}}>
                 <div className="row" >
                     <div className="col-md-9" style={{ marginTop: "100px" }}>
                         <h2 className="font-weight-bold mb-3 p-0">
@@ -392,7 +372,7 @@ export default class detailMesAnnonce extends Component {
                             <MDBModal isOpen={this.state.modal5} toggle={this.toggle(5)} fullHeight position="right">
                                 <MDBModalHeader toggle={this.toggle(5)}>MESSAGE</MDBModalHeader>
                                 <MDBModalBody>
-                                {this.state.message.length > 0 ? this.state.message.map(re => {
+                                {this.state.message.length > 0 ? this.state.message.map((re,index) => {
                                         return <div style={{fontSize:"20px"}}>
                                             <div>Nom: {re.nom}</div>
                                             <div>Prenom: {re.prenom}</div>
@@ -403,12 +383,14 @@ export default class detailMesAnnonce extends Component {
                                             {re.vue?<MDBBtn color="info" onClick={(e)=>{
                                                 e.preventDefault()
                                                 this.visibilite({
-                                                    id:re._id
+                                                    idAnnonce:this.props.match.params.id,
+                                                    index:index
                                                 })
                                             }}>vue</MDBBtn>:<MDBBtn color="primary" onClick={(e)=>{
                                                 e.preventDefault()
                                                 this.visibilite({
-                                                    id:re._id
+                                                    idAnnonce:this.props.match.params.id,
+                                                    index:index
                                                 })
                                             }}>non vue</MDBBtn>}
                                             
@@ -599,20 +581,6 @@ export default class detailMesAnnonce extends Component {
 
                                                         </div>
                                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -47,4 +47,8 @@ route.get('/getContact/:id',venteIm.getContact)
 
 route.put('/updateVisibilite',venteIm.updateVisibilite)
 
+//post contact 2 test
+route.put('/postcontact2',venteIm.Postcontact2)
+route.put('/updateVisibilite2',venteIm.visibilite2)
+
 module.exports = route
