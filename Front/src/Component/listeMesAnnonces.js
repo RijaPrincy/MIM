@@ -41,7 +41,7 @@ export default class listeMesAnnonces extends Component {
                 <MDBCard className="my-5 px-5 pb-5">
                     <MDBCardBody>
                         <h2 className="h1-responsive font-weight-bold text-center my-5">
-                            Recent posts
+                            Mes annonces
                     </h2>
                         <p className="text-center w-responsive mx-auto mb-5">
                             Duis aute irure dolor in reprehenderit in voluptate velit esse

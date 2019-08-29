@@ -126,7 +126,7 @@ export default class detailAnnonce extends Component {
       
     render() {
         return (
-            <div className="container">
+            <div className="container" style={{fontSize:"15px"}}>
 
 
                 <div className="row" >

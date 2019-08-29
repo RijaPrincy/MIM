@@ -13,13 +13,13 @@ export default class posterAnnoce extends Component {
         super(props);
 
         this.state = {
-            pays: '',
+            pays: 'Alaotra-Mangoro',
             commune: '',
             codePostale: '',
             address: '',
 
             typeV: 'vente',
-            type: '',
+            type: 'Maison',
             nbPiece: '',
             nbChambre: '',
             surfaceTerrain: '',
@@ -101,9 +101,9 @@ export default class posterAnnoce extends Component {
             this.setState({
                 caracteristique: this.state.caracteristique + " " + name
             });
-        }else{
+        } else {
             this.setState({
-                caracteristique: this.state.caracteristique.replace(name,"")
+                caracteristique: this.state.caracteristique.replace(name, "")
             });
         }
 
@@ -136,7 +136,7 @@ export default class posterAnnoce extends Component {
     handleUploadImage(ev) {
         ev.preventDefault();
 
-       
+
 
 
 
@@ -159,15 +159,15 @@ export default class posterAnnoce extends Component {
 
 
         data.append('image', Date.now())
-        data.append('image1', Date.now()+"a")
-        data.append('image2', Date.now()+"b")
-        data.append('image3', Date.now()+"c")
+        data.append('image1', Date.now() + "a")
+        data.append('image2', Date.now() + "b")
+        data.append('image3', Date.now() + "c")
 
 
 
 
         data.append('idPoster', localStorage.getItem('id'))
-        
+
 
         data.append('file', this.state.pictures[0])
         data.append('file1', this.state.pictures1[0])
@@ -179,17 +179,17 @@ export default class posterAnnoce extends Component {
             .then(result => {
                 console.log("result", result);
                 if (result.data == "not ok") {
-                    document.getElementById("non").innerHTML = "non reussi"
+                    document.getElementById("non").innerHTML = "Non reussi"
                     document.getElementById("reussi").innerHTML = ""
                 } else {
-                    document.getElementById("reussi").innerHTML = "reussi"
+                    document.getElementById("reussi").innerHTML = "Reussi"
                     document.getElementById("non").innerHTML = ""
                 }
 
             }
             )
             .catch(result => {
-                document.getElementById("non").innerHTML = "non reussi"
+                document.getElementById("non").innerHTML = "Non reussi"
                 document.getElementById("reussi").innerHTML = ""
                 console.log("erreur", result);
 
@@ -225,7 +225,7 @@ export default class posterAnnoce extends Component {
 
     render() {
         return (
-            <div style={{fontSize:"20px"}}>
+            <div style={{ fontSize: "20px" }}>
 
                 <div id="login">
                     <h3 class="text-center text-white pt-5">Login form</h3>
@@ -244,7 +244,7 @@ export default class posterAnnoce extends Component {
                                     <div class="form-group">
                                         <label for="username" class="text-info">Region:</label>
                                         <select className="form-control" id="exampleFormControlSelect2" name="pays" value={this.state.pays} onChange={this.change}>
-                                            <option value="Region" >Region</option>
+
                                             <option value="Alaotra-Mangoro">Alaotra-Mangoro</option>
                                             <option value="Amoron'i Mania">Amoron'i Mania</option>
                                             <option value="Analamanga">Analamanga</option>
@@ -274,15 +274,15 @@ export default class posterAnnoce extends Component {
 
                                     <div class="form-group">
                                         <label for="username" class="text-info">Code postal du bien:</label>
-                                        <input type="text" name="codePostale" value={this.state.codePostale} onChange={this.change} class="form-control" required/>
+                                        <input type="text" name="codePostale" value={this.state.codePostale} onChange={this.change} class="form-control" required />
                                     </div>
                                     <div class="form-group">
                                         <label for="username" class="text-info">Commune:</label>
-                                        <input type="text" name="commune" value={this.state.commune} onChange={this.change} class="form-control" required/>
+                                        <input type="text" name="commune" value={this.state.commune} onChange={this.change} class="form-control" required />
                                     </div>
                                     <div class="form-group">
                                         <label for="username" class="text-info">Addresse:</label>
-                                        <input type="text" name="address" value={this.state.address} onChange={this.change} class="form-control" required/>
+                                        <input type="text" name="address" value={this.state.address} onChange={this.change} class="form-control" required />
                                     </div>
                                 </div>
 
@@ -303,7 +303,7 @@ export default class posterAnnoce extends Component {
                                     <div class="form-group">
                                         <label for="username" class="text-info">Type de bien:</label>
                                         <select className="form-control" id="exampleFormControlSelect2" name="type" value={this.state.type} onChange={this.change}>
-                                            <option value="Immobilier d'habitation" style={{ color: "blue" }}>Immobilier d'habitation</option>
+
                                             <option value="Maison">Maison</option>
                                             <option value="Appartement">Appartement</option>
                                             <option value="Terrain">Terrain</option>
@@ -312,12 +312,12 @@ export default class posterAnnoce extends Component {
                                             <option value="Chalet/mobil-home" >Chalet/mobil-home</option>
                                             <option value="Multipropriété">Multipropriété</option>
                                             <option value="Résidence avec service">Résidence avec service</option>
-                                            <option value="Immobilier d'entreprise" style={{ color: "blue" }}>Immobilier d'entreprise</option>
+
                                             <option value="Bureau et locaux proffessionnel">Bureau et locaux proffessionnel</option>
                                             <option value="Fonds de commerce">Fonds de commerce</option>
                                             <option value="Local d'activité">Local d'activité</option>
                                             <option value="Résidence avec service">Résidence avec service</option>
-                                            <option value="Divers" style={{ color: "blue" }}>Divers</option>
+
                                             <option value="Parkings">Parkings</option>
                                             <option value="Terrain">Terrain</option>
                                             <option value="Surface divers">Surface divers</option>
@@ -326,15 +326,15 @@ export default class posterAnnoce extends Component {
                                     </div>
                                     <div class="form-group">
                                         <label for="username" class="text-info">Nombre de pieces:</label>
-                                        <input type="text" name="nbPiece" value={this.state.nbPiece} onChange={this.change} id="titre" class="form-control" required/>
+                                        <input type="number" name="nbPiece" value={this.state.nbPiece} onChange={this.change} id="titre" class="form-control" required />
                                     </div>
                                     <div class="form-group">
                                         <label for="username" class="text-info">nombre de chambre:</label>
-                                        <input type="text" name="nbChambre" value={this.state.nbChambre} onChange={this.change} id="titre" class="form-control" required/>
+                                        <input type="number" name="nbChambre" value={this.state.nbChambre} onChange={this.change} id="titre" class="form-control" required />
                                     </div>
                                     <div class="form-group">
                                         <label for="username" class="text-info">Surface habitable:</label>
-                                        <input type="text" name="surfaceTerrain" value={this.state.surfaceTerrain} onChange={this.change} id="titre" class="form-control" required/>
+                                        <input type="number" name="surfaceTerrain" value={this.state.surfaceTerrain} onChange={this.change} id="titre" class="form-control" required />
                                     </div>
 
                                     <div class="form-group">
@@ -378,11 +378,11 @@ export default class posterAnnoce extends Component {
                                     </div>
                                     <div class="form-group">
                                         <label for="username" class="text-info">Prix:</label>
-                                        <input type="text" name="prix" value={this.state.prix} onChange={this.change} class="form-control" required/>
+                                        <input type="number" name="prix" value={this.state.prix} onChange={this.change} class="form-control" required />
                                     </div>
                                     <div class="form-group">
                                         <label for="username" class="text-info">Texte de l'annonce:</label>
-                                        <textarea type="text" name="description" value={this.state.description} onChange={this.change} id="titre" class="form-control" required/>
+                                        <textarea type="text" name="description" value={this.state.description} onChange={this.change} id="titre" class="form-control" required />
                                     </div>
 
                                 </div>
@@ -397,58 +397,58 @@ export default class posterAnnoce extends Component {
 
 
 
+                            <center><div style={{fontSize:"15px"}}>Veuillez uploader exactement 4 images</div></center>
+
+
+
+
+                            <div className="row">
+                                <div className="col-md-3"><ImageUploader
+                                    withIcon={true}
+                                    buttonText='Choose images'
+                                    onChange={this.onDrop}
+                                    imgExtension={['.jpg', '.jpeg', '.gif', '.png', '.gif']}
+                                    maxFileSize={5242880}
+                                    singleImage={true}
+                                    className='file'
+                                    withPreview={true}
+                                /></div>
+                                <div className="col-md-3"><ImageUploader
+                                    withIcon={true}
+                                    buttonText='Choose images'
+                                    onChange={this.onDrop1}
+                                    imgExtension={['.jpg', '.jpeg', '.gif', '.png', '.gif']}
+                                    maxFileSize={5242880}
+                                    singleImage={true}
+                                    className='file'
+                                    withPreview={true}
+                                /></div>
+                                <div className="col-md-3"> <ImageUploader
+                                    withIcon={true}
+                                    buttonText='Choose images'
+                                    onChange={this.onDrop2}
+                                    imgExtension={['.jpg', '.jpeg', '.gif', '.png', '.gif']}
+                                    maxFileSize={5242880}
+                                    singleImage={true}
+                                    className='file'
+                                    withPreview={true}
+                                /></div>
+                                <div className="col-md-3"><ImageUploader
+                                    withIcon={true}
+                                    buttonText='Choose images'
+                                    onChange={this.onDrop3}
+                                    imgExtension={['.jpg', '.jpeg', '.gif', '.png', '.gif']}
+                                    maxFileSize={5242880}
+                                    singleImage={true}
+                                    className='file'
+                                    withPreview={true}
+                                /></div>
+                            </div>
 
 
 
 
 
-                        <div className="row">
-                            <div className="col-md-3"><ImageUploader
-                                withIcon={true}
-                                buttonText='Choose images'
-                                onChange={this.onDrop}
-                                imgExtension={['.jpg','.jpeg', '.gif', '.png', '.gif']}
-                                maxFileSize={5242880}
-                                singleImage={true}
-                                className='file'
-                                withPreview={true}
-                            /></div>
-                            <div className="col-md-3"><ImageUploader
-                                withIcon={true}
-                                buttonText='Choose images'
-                                onChange={this.onDrop1}
-                                imgExtension={['.jpg', '.jpeg','.gif', '.png', '.gif']}
-                                maxFileSize={5242880}
-                                singleImage={true}
-                                className='file'
-                                withPreview={true}
-                            /></div>
-                            <div className="col-md-3"> <ImageUploader
-                                withIcon={true}
-                                buttonText='Choose images'
-                                onChange={this.onDrop2}
-                                imgExtension={['.jpg', '.jpeg','.gif', '.png', '.gif']}
-                                maxFileSize={5242880}
-                                singleImage={true}
-                                className='file'
-                                withPreview={true}
-                            /></div>
-                            <div className="col-md-3"><ImageUploader
-                                withIcon={true}
-                                buttonText='Choose images'
-                                onChange={this.onDrop3}
-                                imgExtension={['.jpg', '.jpeg','.gif', '.png', '.gif']}
-                                maxFileSize={5242880}
-                                singleImage={true}
-                                className='file'
-                                withPreview={true}
-                            /></div>
-                        </div>
-
-                            
-                            
-                           
-                            
 
 
 

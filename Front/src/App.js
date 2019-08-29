@@ -10,7 +10,7 @@ import MesAnnonce from './Component/listeMesAnnonces'
 import DetailMes from './Component/detailMesAnnonces'
 
 
-import  DetailAnnonce from './Component/detailAnnonce'
+import DetailAnnonce from './Component/detailAnnonce'
 
 
 
@@ -19,19 +19,52 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import Dash from './Component/Dashboard'
 import Footer from './Component/footer'
 
+import { Redirect } from 'react-router-dom'
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      redirect: false
+    }
+
+
+  }
+  componentDidMount() {
+    this.redirect()
+
+  }
+  redir() {
+    if (this.state.redirect) {
+      console.log("hah", this.props);
+      return <Redirect to='/Dashboard' />
+    }
+  }
+  redirect() {
+   
+    if (localStorage.getItem('token')) {
+      this.setState({
+        redirect: true
+    })
+    }
+
+}
 
   render() {
     return (
       <div className="app">
-       <Router>
-         <div>
-           <Route  path='/' component={PointDEntrer}></Route>
-           <Route path='/authentification' component={Auth}></Route>
-           <Route path='/Dashboard' component={Dash}></Route>
-         </div>
-       </Router>
+       
+        <Router>
+          <div>
+          {this.redir()}
+          
+            <Route path='/'  component={PointDEntrer}></Route>
+            <Route path='/authentification' component={Auth}></Route>
+           {!this.state.redirect?<Route path='/Dashboard' exact component={Dash}></Route>:""} 
+          </div>
+        </Router>
         <Footer />
 
 

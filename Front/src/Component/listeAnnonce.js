@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {  MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBBtn } from "mdbreact";
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView, MDBBtn } from "mdbreact";
 
 export default class test extends Component {
     constructor(props) {
@@ -8,8 +8,15 @@ export default class test extends Component {
         this.state = {
             list: "",
             list1: '',
-            pictures: []
+            pictures: [],
+            typeV: "none",
+            type: "none",
+            prixMax: "",
+            chambre: "none",
+            piece: "none",
+            pays: "none"
         }
+        this.change = this.change.bind(this)
     }
 
     componentDidMount() {
@@ -25,43 +32,121 @@ export default class test extends Component {
             })
 
     }
+
+    change = (e) => {
+        console.log(e);
+
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+        console.log(this.state);
+    }
+
+    trie() {
+
+        // if (this.state.typeV !== "none" && this.state.prixMin == 0 && this.state.prixMax == 0 &&
+        //     this.state.chambre == "none" && this.state.piece == "none" && this.state.pays == "none") {
+
+        //     if (this.state.typeV == "Tout") {
+        //         this.setState({
+        //             list:this.state.list1
+        //         })
+        //     } else {
+        //         var a = this.state.list1.filter(book => book.typeV == this.state.typeV)
+        //         this.setState({
+        //             list: a
+        //         })
+        //     }
+
+        // }
+
+        // typeV: "none",
+        // type: "none",
+        // prixMax: "",
+        // chambre: "none",
+        // piece: "none",
+        // pays: "none"
+
+        var a = this.state.list1.filter(book => {
+            console.log("prixMax", this.state.chambre, "prix", book.chambre);
+
+
+            return (
+
+                (this.state.typeV !== "none" ? (this.state.typeV == "Tout" ? (book.typeV == book.typeV) : (book.typeV == this.state.typeV)) : (book.typeV == book.typeV))
+                &&
+                (this.state.type !== "none" ? (this.state.type == "Tout" ? (book.typeV == book.typeV) : (book.type == this.state.type)) : (book.type == book.type))
+                &&
+                (this.state.prixMax ? (parseInt(book.prix) <= this.state.prixMax) : (book.type == book.type))
+                &&
+                (this.state.chambre != "none" ? (this.state.chambre == "Tout" ? (book.type == book.type) : (this.state.chambre == "plus" ? (parseInt(book.nbChambre) >= parseInt(this.state.chambre)) : ((book.nbChambre == this.state.chambre)))) : (book.type == book.type))
+                &&
+                (this.state.piece != "none" ? (this.state.piece == "Tout" ? (book.type == book.type) : (this.state.piece == "plus" ? (parseInt(book.nbPiece) >= parseInt(this.state.piece)) : ((book.nbPiece == this.state.piece)))) : (book.type == book.type))
+                &&
+                (this.state.pays !== "none" ? (this.state.pays == "Tout" ? (book.typeV == book.typeV) : (book.pays == this.state.pays)) : (book.type == book.type))
+
+            )
+        }
+
+
+
+        )
+
+
+
+
+
+
+
+
+        this.setState({
+            list: a
+        })
+
+
+    }
+
+
+
+
+
     render() {
         return (
             <div className="container">
-                <form >
+                <form style={{ fontSize: '15px' }}>
                     <center><h3>Filtre​ </h3></center>
-                    <div className="row" style={{marginTop:"70px" }}>
-
-
+                    <div className="row" style={{ marginTop: "70px" }}>
                         <div class="form-group" className="col-md-6">
 
-                            <select className="form-control" id="exampleFormControlSelect1" value={this.state.genre} onChange={this.select}>
-
-                                <option value="none">Vente</option>
-                                <option value="none">Location</option>
+                            <select className="form-control" id="exampleFormControlSelect1" name="typeV" value={this.state.typeV} onChange={this.change}>
+                                <option value="Vente">Vente</option>
+                                <option value="Vente">Vente</option>
+                                <option value="Location">Location</option>
+                                <option value="Tout">Tout</option>
                             </select>
                         </div>
                         <div class="form-group" className="col-md-6">
 
-                            <select className="form-control" id="exampleFormControlSelect2" name="gender" value={this.state.gender} onChange={this.select2}>
-                                <option value="none" style={{ color: "blue" }}>Immobilier d'habitation</option>
-                                <option value="none">Maison</option>
-                                <option value="none">Appartement</option>
-                                <option value="none">Terrain</option>
-                                <option value="none">Garage/Parking</option>
-                                <option value="none">Immeuble</option>
-                                <option value="none" >Chalet/mobil-home</option>
-                                <option value="none">Multipropriété</option>
-                                <option value="none">Résidence avec service</option>
-                                <option value="none" style={{ color: "blue" }}>Immobilier d'entreprise</option>
-                                <option value="none">Bureau et locaux proffessionnel</option>
-                                <option value="none">Fonds de commerce</option>
-                                <option value="none">Local d'activité</option>
-                                <option value="none">Résidence avec service</option>
-                                <option value="none" style={{ color: "blue" }}>Divers</option>
-                                <option value="none">Parkings</option>
-                                <option value="none">Terrain</option>
-                                <option value="none">Surface divers</option>
+                            <select className="form-control" id="exampleFormControlSelect2" name="type" value={this.state.type} onChange={this.change}>
+                                {/* <option value="Immobilier d'habitation" style={{ color: "blue" }}>Immobilier d'habitation</option> */}
+                                <option value="Maison">Maison</option>
+                                <option value="Appartement">Appartement</option>
+                                <option value="Terrain">Terrain</option>
+                                <option value="Garage/Parking">Garage/Parking</option>
+                                <option value="Immeuble">Immeuble</option>
+                                <option value="Chalet/mobil-home" >Chalet/mobil-home</option>
+                                <option value="Multipropriété">Multipropriété</option>
+                                <option value="Résidence avec service">Résidence avec service</option>
+                                {/* <option value="Immobilier d'entreprise" style={{ color: "blue" }} desabled>Immobilier d'entreprise</option> */}
+                                <option value="Bureau et locaux proffessionnel">Bureau et locaux proffessionnel</option>
+                                <option value="Fonds de commerce">Fonds de commerce</option>
+                                <option value="Local d'activité">Local d'activité</option>
+                                <option value="Résidence avec service">Résidence avec service</option>
+                                {/* <option value="Divers" style={{ color: "blue" }}>Divers</option> */}
+                                <option value="Parkings">Parkings</option>
+                                <option value="Terrain">Terrain</option>
+                                <option value="Surface divers">Surface divers</option>
+                                <option value="Tout">Tout</option>
 
                             </select>
                         </div>
@@ -69,44 +154,51 @@ export default class test extends Component {
 
 
                     </div>
-                    <div className="row" >
+                    <div className="row" style={{ marginTop: "20px" }}>
 
 
 
-                        <div className="col-md-2">
+                        <div className="col-md-3">
 
-                            <input id="exampleFormControlSelect1" placeholder="prix min" type="number" />
-                        </div>
-                        <div className="col-md-2">
-
-                            <input id="exampleFormControlSelect1" placeholder="prix max" type="number" />
+                            <input id="exampleFormControlSelect1" placeholder="prix max"
+                                type="number" className="form-control"
+                                name="prixMax" value={this.state.prixMax} onChange={this.change} />
                         </div>
 
 
 
 
 
-                        <div class="form-group" className="col-md-2">
+                        <div class="form-group" className="col-md-3">
 
-                            <select className="form-control" id="exampleFormControlSelect1" value={this.state.genre} onChange={this.select}>
+                            <select className="form-control" name="chambre" id="exampleFormControlSelect1" value={this.state.chambre} onChange={this.change}>
 
-                                <option value="none" desabled>Chambres</option>
-                                <option value="none">1 Chambre</option>
-                                <option value="none">2 Chambres</option>
-                                <option value="none">3 Chambres</option>
-                                <option value="none">4 Chambres</option>
-                                <option value="none">5 Chambres</option>
-                                <option value="none">6 Chambres</option>
+                                <option value="none" >Chambres</option>
+                                <option value="1">1 Chambre</option>
+                                <option value="2">2 Chambres</option>
+                                <option value="3">3 Chambres</option>
+                                <option value="4">4 Chambres</option>
+                                <option value="5">5 Chambres</option>
+                                <option value="6">6 Chambres</option>
+                                <option value="plus">Plus de 6</option>
+                                <option value="Tout">Tout</option>
 
                             </select>
                         </div>
 
-                        <div class="form-group" className="col-md-2">
+                        <div class="form-group" className="col-md-3">
 
-                            <select className="form-control" id="exampleFormControlSelect1" value={this.state.genre} onChange={this.select}>
-                                <option value="none">type</option>
-                                <option value="none">Vente</option>
-                                <option value="none">Location</option>
+                            <select className="form-control" name="piece" id="exampleFormControlSelect1" value={this.state.piece} onChange={this.change}>
+                                <option value="none">pièces</option>
+                                <option value="1">1 pièce</option>
+                                <option value="2">2 pièces</option>
+                                <option value="3">3 pièces</option>
+                                <option value="4">4 pièces</option>
+                                <option value="5">5 pièces</option>
+                                <option value="6">6 pièces</option>
+                                <option value="plus">Plus de 6</option>
+                                <option value="Tout">Tout</option>
+
                             </select>
                         </div>
 
@@ -114,127 +206,153 @@ export default class test extends Component {
 
 
 
-                        <div class="form-group" className="col-md-2">
+                        <div class="form-group" className="col-md-3">
 
-                            <select className="form-control" id="exampleFormControlSelect2" name="gender" value={this.state.gender} onChange={this.select2}>
-                                <option value="none">Lieux</option>
-                                <option value="man">man</option>
-                                <option value="woman">woman</option>
+                            <select className="form-control" id="exampleFormControlSelect2" name="pays" value={this.state.pays} onChange={this.change}>
+                                <option value="none" >Region</option>
+                                <option value="Alaotra-Mangoro">Alaotra-Mangoro</option>
+                                <option value="Amoron'i Mania">Amoron'i Mania</option>
+                                <option value="Analamanga">Analamanga</option>
+                                <option value="Analanjirofo">Analanjirofo</option>
+                                <option value="Androy">Androy</option>
+                                <option value="Anôsy" >Anôsy</option>
+                                <option value="Atsimo-Andrefana">Atsimo-Andrefana</option>
+                                <option value="Atsimo-Atsinanana">Atsimo-Atsinanana</option>
+                                <option value="Atsinanana">Atsinanana</option>
+                                <option value="Betsiboka">Betsiboka</option>
+                                <option value="Boeny">Boeny</option>
+                                <option value="Bongolava">Bongolava</option>
+                                <option value="Diana" >	Diana</option>
+                                <option value="Haute Matsiatra">Haute Matsiatra</option>
+                                <option value="Ihorombe">Ihorombe</option>
+                                <option value="Itasy">Itasy</option>
+                                <option value="Melaky">Melaky</option>
+                                <option value="Menabe">Menabe</option>
+                                <option value="Sava">Sava</option>
+                                <option value="Sofia">Sofia</option>
+                                <option value="Vakinankaratra">Vakinankaratra</option>
+                                <option value="Vatovavy-Fitovinany">Vatovavy-Fitovinany</option>
+                                <option value="Tout">Tout</option>
 
                             </select>
                         </div>
                     </div>
 
-                    <input type="submit" className="btn btn-primary" value="search" style={{ marginTop: "10px" }} />
+                    <input type="submit" className="btn btn-primary"
+                        value="search" style={{ marginTop: "10px" }}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            this.trie()
+                        }} />
                 </form>
                 <MDBCard className="my-5 px-5 pb-5">
                     <MDBCardBody>
                         <h2 className="h1-responsive font-weight-bold text-center my-5">
                             Recent posts
                         </h2>
-                        <p className="text-center w-responsive mx-auto mb-5">
+                        <p className="text-center w-responsive mx-auto mb-5" style={{ fontSize: '15px' }}>
                             Duis aute irure dolor in reprehenderit in voluptate velit esse
                             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                             cupidatat non proident, sunt in culpa qui officia deserunt mollit
                             anim id est laborum.
                         </p>
                         {this.state.list.length > 0 ? this.state.list.map((ate, index) => {
-                            let a="http://localhost:8080/image/"+ate.image
-                            let h=new Date(ate.date)
-                            let r=h.getDate()+"/"+(h.getMonth()+1)+"/"+h.getFullYear()
-                           return<div>
-                               {index %2==0?
-                               <div>
-                                   <hr className="my-5" />
-                                   <MDBRow>
-                             <MDBCol lg="5">
-                                 <MDBView className="rounded z-depth-2 mb-lg-0 mb-4" hover waves>
-                                     <img
-                                         className="img-fluid"
-                                         src={a}
-                                         alt=""
-                                     />
-                                     <a href="#!">
-                                         <MDBMask overlay="white-slight" />
-                                     </a>
-                                 </MDBView>
-                             </MDBCol>
-                             <MDBCol lg="7">
-                                
-                                 <h4 className="font-weight-bold mb-3 p-0">
-                                     <strong>{ate.typeV}  {ate.type}  {ate.pays} {ate.commune} </strong>
-                                 </h4>
-                                 <h5 className="font-weight-bold mb-3 p-0">
-                                     {ate.nbPiece} pièces/ {ate.nbChambre} chambres/ {ate.surfaceTerrain} m2 
+                            let a = "http://localhost:8080/image/" + ate.image
+                            let h = new Date(ate.date)
+                            let r = h.getDate() + "/" + (h.getMonth() + 1) + "/" + h.getFullYear()
+                            return <div style={{ fontSize: '15px' }}>
+                                {index % 2 == 0 ?
+                                    <div>
+                                        <hr className="my-5" />
+                                        <MDBRow>
+                                            <MDBCol lg="5">
+                                                <MDBView className="rounded z-depth-2 mb-lg-0 mb-4" hover waves>
+                                                    <img
+                                                        className="img-fluid"
+                                                        src={a}
+                                                        alt=""
+                                                    />
+                                                    <a href="#!">
+                                                        <MDBMask overlay="white-slight" />
+                                                    </a>
+                                                </MDBView>
+                                            </MDBCol>
+                                            <MDBCol lg="7">
+
+                                                <h4 className="font-weight-bold mb-3 p-0">
+                                                    <strong>{ate.typeV}  {ate.type}  {ate.pays} {ate.commune} </strong>
+                                                </h4>
+                                                <h5 className="font-weight-bold mb-3 p-0">
+                                                    {ate.nbPiece} pièces/ {ate.nbChambre} chambres/ {ate.surfaceTerrain} m2
                                  </h5>
-                                 <h2 className="font-weight-bold mb-3 p-0">
-                                     <strong>{ate.prix} Ar </strong>
-                                 </h2>
-                                 <p>
-                                 {ate.description.length>200?ate.description.slice(0,200)+'...':ate.description}
-                                 </p>
-                                 <p>
-                                 {r}
-                                 </p>
-                                 <MDBBtn color="success" size="md" className="waves-light " onClick={
-                                   ()=>  this.props.history.push('/detailAnnonce/'+ate._id)
-                                 }>
-                                 En savoir plus
+                                                <h2 className="font-weight-bold mb-3 p-0">
+                                                    <strong>{ate.prix} Ar </strong>
+                                                </h2>
+                                                <p>
+                                                    {ate.description.length > 200 ? ate.description.slice(0, 200) + '...' : ate.description}
+                                                </p>
+                                                <p>
+                                                    {r}
+                                                </p>
+                                                <MDBBtn color="success" size="md" className="waves-light " onClick={
+                                                    () => this.props.history.push('/detailAnnonce/' + ate._id)
+                                                }>
+                                                    En savoir plus
                                  </MDBBtn>
-                             </MDBCol>
-                         </MDBRow>
-                                   </div>
-                            :   <div><hr className="my-5" />
-                         <MDBRow>
-                            <MDBCol lg="7">
-                            <h4 className="font-weight-bold mb-3 p-0">
-                                <strong>{ate.typeV}  {ate.type}  {ate.pays} {ate.commune} </strong>
-                            </h4>
-                            <h5 className="font-weight-bold mb-3 p-0">
-                                    {ate.nbPiece} pièces/ {ate.nbChambre} chambres/ {ate.surfaceTerrain} m2 
+                                            </MDBCol>
+                                        </MDBRow>
+                                    </div>
+                                    : <div><hr className="my-5" />
+                                        <MDBRow>
+                                            <MDBCol lg="7">
+                                                <h4 className="font-weight-bold mb-3 p-0">
+                                                    <strong>{ate.typeV}  {ate.type}  {ate.pays} {ate.commune} </strong>
+                                                </h4>
+                                                <h5 className="font-weight-bold mb-3 p-0">
+                                                    {ate.nbPiece} pièces/ {ate.nbChambre} chambres/ {ate.surfaceTerrain} m2
                             </h5>
-                            <h2 className="font-weight-bold mb-3 p-0">
-                                <strong>{ate.prix} Ar </strong>
-                            </h2>
-                            <p>
-                                {ate.description}
-                            </p>
-                                
-                                <p>
-                                   
-                                {r}
-                                </p>
-                                <MDBBtn
-                                    color="pink"
-                                    size="md"
-                                    className="mb-lg-0 mb-4 waves-light"
-                                    onClick={
-                                        ()=>  this.props.history.push('/detailAnnonce/'+ate._id)
-                                      }
-                                >
-                                    En savoir plus
+                                                <h2 className="font-weight-bold mb-3 p-0">
+                                                    <strong>{ate.prix} Ar </strong>
+                                                </h2>
+                                                <p>
+                                                    {ate.description.length > 200 ? ate.description.slice(0, 200) + '...' : ate.description}
+                                                </p>
+
+                                                <p>
+
+                                                    {r}
+                                                </p>
+                                                <MDBBtn
+                                                    color="pink"
+                                                    size="md"
+                                                    className="mb-lg-0 mb-4 waves-light"
+                                                    onClick={
+                                                        () => this.props.history.push('/detailAnnonce/' + ate._id)
+                                                    }
+                                                >
+                                                    En savoir plus
                                 </MDBBtn>
-                            </MDBCol>
-                            <MDBCol lg="5">
-                                <MDBView className="rounded z-depth-2 mb-lg-0 mb-4" hover waves>
-                                    <img
-                                        className="img-fluid"
-                                        src={a}
-                                        alt=""
-                                    />
-                                    <a href="#!">
-                                        <MDBMask overlay="white-slight" />
-                                    </a>
-                                </MDBView>
-                            </MDBCol>
-                        </MDBRow>
-                             </div>
-                        }
-                            
-                      
-                           </div> 
-                        }):""}
-                        
+                                            </MDBCol>
+                                            <MDBCol lg="5">
+                                                <MDBView className="rounded z-depth-2 mb-lg-0 mb-4" hover waves>
+                                                    <img
+                                                        className="img-fluid"
+                                                        src={a}
+                                                        alt=""
+                                                    />
+                                                    <a href="#!">
+                                                        <MDBMask overlay="white-slight" />
+                                                    </a>
+                                                </MDBView>
+                                            </MDBCol>
+                                        </MDBRow>
+                                    </div>
+                                }
+
+
+                            </div>
+                        }) : ""}
+
                     </MDBCardBody>
                 </MDBCard>
             </div>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import './auth.css'
+
 
 export default class Authentification extends Component {
 
@@ -122,35 +124,35 @@ export default class Authentification extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6">
-                        <div id="login">
-                            <h3 class="text-center text-white pt-5">Login form</h3>
+                    <div className="col-md-6" id="enr" >
+                        <div id="login"  style={{marginTop:"100px",height: 700}} className="enr2">
+                            <h3 class="text-center text-white pt-5"></h3>
                             <div class="container">
-                                <div id="login-row" class="row justify-content-center align-items-center">
+                                <div id="login-row" class="row justify-content-center align-items-center" >
                                     <div id="login-column" class="col-md-6">
                                         <div id="login-box" class="col-md-12">
                                             <form id="login-form" class="form" action="" method="post">
-                                                <h3 class="text-center text-info">Enregistrement</h3>
+                                                <h3 >Enregistrement</h3>
                                                 <div class="form-group">
-                                                    <label for="username" class="text-info">Nom:</label><br />
-                                                    <input type="text" required name="nom" value={this.state.nom} onChange={this.change} id="username" class="form-control" />
+                                                    <label for="username" >Nom:</label><br />
+                                                    <input type="text" required name="nom" value={this.state.nom} onChange={this.change} className="username" class="form-control" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="username" class="text-info">Prenom:</label><br />
-                                                    <input type="text" name="prenom" value={this.state.prenom} onChange={this.change} id="username" class="form-control" />
+                                                    <label for="username" >Prenom:</label><br />
+                                                    <input type="text" name="prenom" value={this.state.prenom} onChange={this.change} className="username" class="form-control" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="username" class="text-info">Email:</label><br />
-                                                    <input type="text" name="email" value={this.state.email} onChange={this.change} id="name" class="form-control" />
+                                                    <label for="username" >Email:</label><br />
+                                                    <input type="text" name="email" value={this.state.email} onChange={this.change} className="username" class="form-control" />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="password" class="text-info">Password:</label><br />
-                                                    <input type="password" name="passWord" value={this.state.passWord} onChange={this.change} id="password" class="form-control" />
+                                                    <label for="password" >Password:</label><br />
+                                                    <input type="password" name="passWord" value={this.state.passWord} onChange={this.change} className="username" class="form-control" />
                                                 </div>
                                                 <div class="form-group">
 
-                                                    <input type="submit" name="submit" class="btn btn-info btn-md" value="Enregistrer"
+                                                    <input type="submit" name="submit" class="btn btn-info btn-md" value="S'inscrire"
                                                         onClick={
                                                             (e) => {
                                                                 e.preventDefault()
@@ -177,21 +179,21 @@ export default class Authentification extends Component {
                     </div>
                     <div className="col-md-6">
                         {this.renderRedirect()}
-                        <div >
-                            <div id="login" style={{ height: 800 }}>
-                                <h3 class="text-center text-white pt-5">Se connecter</h3>
+                        <div style={{marginTop:"100px"}}>
+                            <div id="login25" style={{ height: 700 }} className="enr2">
+                                <h3 class="text-center text-white pt-5"></h3>
                                 <div class="container">
                                     <div id="login-row" class="row justify-content-center align-items-center">
                                         <div id="login-column" class="col-md-6">
                                             <div id="login-box" class="col-md-12">
                                                 <form id="login-form" class="form" action="" method="post">
-                                                    <h3 class="text-center text-info">Se connecter</h3>
+                                                    <h3 >Se connecter</h3>
                                                     <div class="form-group">
-                                                        <label for="username" class="text-info">Nom:</label><br />
+                                                        <label for="username" >Nom:</label><br />
                                                         <input type="text" name="email" value={this.state.email} onChange={this.change} id="username" class="form-control" />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="password" class="text-info">Mot de passe:</label><br />
+                                                        <label for="password" >Mot de passe:</label><br />
                                                         <input type="password" name="passWord" value={this.state.passWord} onChange={this.change} id="password" class="form-control" />
                                                     </div>
                                                     <div class="form-group">

@@ -373,12 +373,12 @@ export default class detailMesAnnonce extends Component {
                                 <MDBModalHeader toggle={this.toggle(5)}>MESSAGE</MDBModalHeader>
                                 <MDBModalBody>
                                 {this.state.message.length > 0 ? this.state.message.map((re,index) => {
-                                        return <div style={{fontSize:"20px"}}>
-                                            <div>Nom: {re.nom}</div>
-                                            <div>Prenom: {re.prenom}</div>
-                                            <div>Telephone: {re.telephone}</div>
-                                            <div>Email: {re.email}</div>
-                                            <div>Message: {re.message}</div>
+                                        return <div style={{fontSize:"15px"}}>
+                                            <div><strong>Nom:</strong> {re.nom}</div>
+                                            <div><e>Prenom:</e> {re.prenom}</div>
+                                            <div><e>Telephone:</e> {re.telephone}</div>
+                                            <div><e>Email:</e> {re.email}</div>
+                                            <div><e>Message:</e> <e style={{color:"red"}}>{re.message}</e></div>
                                             <div> {re.date}</div>
                                             {re.vue?<MDBBtn color="info" onClick={(e)=>{
                                                 e.preventDefault()

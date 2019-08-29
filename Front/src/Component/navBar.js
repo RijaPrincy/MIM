@@ -33,23 +33,18 @@ class NavbarPage extends Component {
                 <div >
                     <MDBNavbar color="default-color" dark expand="md" style={{ position: "fixed", width: "100%", zIndex: "99" }}>
                         <MDBNavbarBrand>
-                            <strong className="white-text">Navbar</strong>
+                            <strong className="white-text"><strong style={{fontSize:"35px",fontStyle:'italic'}}>Mon chez moi</strong></strong>
                         </MDBNavbarBrand>
                         <MDBNavbarToggler onClick={this.toggleCollapse} />
                         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
                             <MDBNavbarNav left>
                                 <MDBNavItem active>
-                                    <MDBNavLink to="#!">Home</MDBNavLink>
+                                    <MDBNavLink to="/">Home</MDBNavLink>
                                 </MDBNavItem>
-                                <MDBNavItem>
-                                    <MDBNavLink to="/">Features</MDBNavLink>
-                                </MDBNavItem>
-                                <MDBNavItem>
-                                    <MDBNavLink to="#!">Pricing</MDBNavLink>
-                                </MDBNavItem>
+                               
 
                             </MDBNavbarNav>
-                            <MDBNavbarNav right>
+                            {/* <MDBNavbarNav right>
                                 <MDBNavItem>
                                     <MDBNavLink className="waves-effect waves-light" to="#!">
                                         <MDBIcon fab icon="twitter" />
@@ -61,7 +56,7 @@ class NavbarPage extends Component {
                                     </MDBNavLink>
                                 </MDBNavItem>
 
-                            </MDBNavbarNav>
+                            </MDBNavbarNav> */}
                         </MDBCollapse>
                     </MDBNavbar>
                     <Route path='/' exact component={Test} />

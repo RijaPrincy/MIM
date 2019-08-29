@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class footer extends Component {
     render() {
         return (
-            <div style={{ marginTop: "50px" }}>
+            <div style={{ marginTop: "100px" }}>
                 <footer class="page-footer font-small teal pt-4">
 
 

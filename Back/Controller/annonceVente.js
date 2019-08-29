@@ -52,7 +52,7 @@ module.exports.venteImm = function (req, res) {
     console.log(req.body.pays);
 
 
-    if (typeV && pays && commune && type && nbPiece && surfaceTerrain && caracteristique && prix && description && idPoster) {
+    if (typeV && pays && commune && type &&  surfaceTerrain &&  prix && description && idPoster) {
 
 
         jwt.verify(req.token, 'test', (err, authData) => {
@@ -138,7 +138,8 @@ module.exports.updateVenteIm = function (req, res) {
         image1 = req.body.image1,
         image2 = req.body.image2,
         image3 = req.body.image3,
-        idPoster = req.body.idPoster
+        idPoster = req.body.idPoster,
+        typeV = req.body.typeV
 
 
     var imageFile = req.files.file;
@@ -150,7 +151,7 @@ module.exports.updateVenteIm = function (req, res) {
 
 
 
-    if (pays && commune && type && nbPiece && surfaceTerrain && prix && description && idPoster) {
+    if (typeV && pays && commune && type &&  surfaceTerrain &&  prix && description && idPoster) {
 
         jwt.verify(req.token, 'test', (err, authData) => {
             if (err) {
@@ -158,7 +159,7 @@ module.exports.updateVenteIm = function (req, res) {
 
                 res.sendStatus(403);
             } else {
-                AnnonceVente.findByIdAndUpdate(req.params.id, { pays, codePostale, commune, address, type, nbPiece, nbChambre, surfaceTerrain, caracteristique, prix, description, image, image1, image2, image3, idPoster })
+                AnnonceVente.findByIdAndUpdate(req.params.id, { pays, codePostale, commune, address, typeV,type, nbPiece, nbChambre, surfaceTerrain, caracteristique, prix, description, image, image1, image2, image3, idPoster })
                     .then((note) => {
                         imageFile.mv(`${__dirname}/public/${image}.jpg`, function (err) {
                             if (err) {
